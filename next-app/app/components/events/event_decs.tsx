@@ -1,6 +1,7 @@
 import React from 'react';
 import Post from './Post';
 import Post_comment from './post_comment';
+import { useNotification } from '@/app/context/NotificationContent';
 
 
 
@@ -123,13 +124,21 @@ const comments: comment[] = [
 
 
 const EventDecs = ({ data2, id }: { data2: event, id: number }) => {
-
+  const { addNotification } = useNotification(); // Get the function to add notifications
+  
+    // Function to handle the "Add to Calendar" button click
+    const handleAddToCalendar = () => {
+      const Message = `${data2.title} is coming soon`
+      addNotification(Message); // Add the notification using context
+    };
 
   if (id != null) {
     {/* get the data from db */}
   }
 
   return (
+    
+
     <>
       <div className="b ml-5 p-4">
         <p className="text-2xl text-gray-400">
@@ -139,7 +148,9 @@ const EventDecs = ({ data2, id }: { data2: event, id: number }) => {
         <div className="flex justify-between items-center mt-3">
           <p className="text-3xl">{data2.title}</p>
           <div className="flex mr-16 items-center space-x-4">
-            <button className="max-h-14 px-4 py-1 bg-gray-100 text-lg text-black rounded-full whitespace-nowrap shadow-sm border border-gray-200 hover:bg-gray-200">
+            <button 
+            onClick={handleAddToCalendar}
+            className="max-h-14 px-4 py-1 bg-gray-100 text-lg text-black rounded-full whitespace-nowrap shadow-sm border border-gray-200 hover:bg-gray-200">
               + Add to calendar
             </button>
             <button>
