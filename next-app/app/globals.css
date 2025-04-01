@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+}
+
+:root {
+  --foreground-rgb: 0, 0,0;
+}
+
+html[data-theme="winter"] {
+  --b1: white; /* Background */
+  --bc: black; /* Text */
+}
+
+body {
+  background-color: var(--b1);
+  color: var(--bc);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
