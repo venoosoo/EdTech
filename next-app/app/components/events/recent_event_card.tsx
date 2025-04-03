@@ -6,15 +6,16 @@ interface card_data {
     event_name: string,
     text: string,
     date: string,
+    classname?: string,
 };
 
 
-const RecentEventCard = ({ data, isActive, onClick }: { data: card_data; isActive: boolean; onClick: () => void }) => {
+const RecentEventCard = ({ classname,data, isActive, onClick }: { classname: string, data: card_data; isActive: boolean; onClick: () => void }) => {
   return (
     <div
-      className={`p-5 m-3 rounded-xl transition-all duration-500 max-h-72 min-h-72 max-w-70 min-w-70 flex flex-col cursor-pointer ${
+      className={`p-5 m-3 rounded-xl transition-all duration-500 flex flex-col cursor-pointer ${
         isActive ? "bg-black text-white" : "bg-gray-100"
-      }`}
+      } ${classname} `}
       onClick={onClick}
     >
       <p className="text-3xl pb-5">{data.event_name}</p>

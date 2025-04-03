@@ -14,12 +14,11 @@ interface tweet_data {
 }
 
 const Tweet = ({ data }: { data: tweet_data }) => {
-  const { addNotification } = useNotification(); // Get the function to add notifications
+  const { addNotification,triggerNotification } = useNotification();
 
-  // Function to handle the "Add to Calendar" button click
   const handleAddToCalendar = () => {
     const Message = `${data.title} is coming soon`
-    addNotification(Message); // Add the notification using context
+    addNotification(Message);
   };
 
   return (
@@ -35,7 +34,7 @@ const Tweet = ({ data }: { data: tweet_data }) => {
       </div>
       <div className="pl-4 rounded-xl ml-12 pt-3 mt-4 pb-5 bg-gray-100 max-w-lg">
         <p className="text-xl">{data.title}</p>
-        {/* 115 characters limit */}
+        {/* make 115 characters limit */}
         <p className="whitespace-normal">{data.text}</p>
       </div>
       <div className="items-center flex ml-12 mt-3 ">
@@ -67,7 +66,10 @@ const Tweet = ({ data }: { data: tweet_data }) => {
         </div>
         <p className="ml-5 ">{data.comment_amount}</p>
         <button
-          onClick={handleAddToCalendar} // Attach the click handler
+          onClick={() => {
+            handleAddToCalendar(); 
+            triggerNotification(); 
+          }}
           className="max-h-9 ml-auto px-4 py-1 bg-gray-100 text-black rounded-full whitespace-nowrap shadow-sm border border-gray-200 hover:bg-gray-200"
         >
           + Add to calendar

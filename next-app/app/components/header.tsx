@@ -5,7 +5,10 @@ import Link from "next/link";
 import { useNotification } from "../context/NotificationContent";
 const Header = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false);
-  const { notifications } = useNotification();
+  const { notifications,disableNotification,getNewNotification } = useNotification();
+
+
+
 
   return (
     <div className="flex text-2xl m-5 items-center">
@@ -16,11 +19,18 @@ const Header = () => {
         <p>Teachers</p>
         <Link href="/recent">Events</Link>
         <p>Payments</p>
-        <p>Parent's guide</p>
+        <Link href="/parentsguide">Parent's guide</Link>
       </div>
       <div className="flex space-x-4 items-center profile ml-auto">
         <div className="relative">
-          <button onClick={() => setShowNotification(!showNotification)} className="p-2 transition">
+        {getNewNotification() && (
+          <div className="absolute top-2 left-2 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+        )}
+          <button onClick={() => {
+            setShowNotification(!showNotification)
+            disableNotification()
+          }} className="p-2 transition">
+            
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

@@ -14,6 +14,10 @@ interface CardData {
   date: string;
 }
 
+
+
+{/* somehow if id == 2 it breaks ui a little literaly no idea why */}
+
 const fakeData: CardData[] = [
   { id: 1, event_name: "Tech Conference 2025", text: "Join us for an exciting tech conference...", date: "2025-06-15" },
   { id: 3, event_name: "Photography Workshop", text: "Learn the fundamentals of photography...", date: "2025-04-20" },
@@ -54,9 +58,10 @@ const Page = () => {
           <div className="min-w-[px] ml-20 mt-16">
             <p className="text-6xl">Recent Events</p>
           </div>
-          <div className="grid grid-cols-2 grid-rows-3 gap-0 ml-16 mt-10 max-w-2xl">
+          <div className="grid grid-cols-2 grid-rows-3  gap-0 ml-16 mt-10 max-w-2xl">
             {fakeData.map((event) => (
               <RecentEventCard
+                classname="max-h-72 min-h-72 max-w-70 min-w-70"
                 key={event.id}
                 data={event}
                 isActive={selectedId === event.id}

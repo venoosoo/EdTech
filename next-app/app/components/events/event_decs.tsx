@@ -124,7 +124,7 @@ const comments: comment[] = [
 
 
 const EventDecs = ({ data2, id }: { data2: event, id: number }) => {
-  const { addNotification } = useNotification(); // Get the function to add notifications
+  const { addNotification,triggerNotification } = useNotification(); // Get the function to add notifications
   
     // Function to handle the "Add to Calendar" button click
     const handleAddToCalendar = () => {
@@ -149,7 +149,10 @@ const EventDecs = ({ data2, id }: { data2: event, id: number }) => {
           <p className="text-3xl">{data2.title}</p>
           <div className="flex mr-16 items-center space-x-4">
             <button 
-            onClick={handleAddToCalendar}
+            onClick={() => {
+              handleAddToCalendar();
+              triggerNotification();
+            }}
             className="max-h-14 px-4 py-1 bg-gray-100 text-lg text-black rounded-full whitespace-nowrap shadow-sm border border-gray-200 hover:bg-gray-200">
               + Add to calendar
             </button>
