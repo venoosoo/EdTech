@@ -15,7 +15,7 @@ const Header = () => {
       <h1 className="font-bold text-3xl">EdTech</h1>
       <div className="ml-32 sections text-xl flex space-x-10">
         <Link href="/dashboard">Dashboard</Link>
-        <p>Activity</p>
+        <Link href="/attendance">Attendance</Link>
         <p>Teachers</p>
         <Link href="/recent">Events</Link>
         <p>Payments</p>
