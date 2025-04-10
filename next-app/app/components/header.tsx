@@ -3,34 +3,39 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useNotification } from "../context/NotificationContent";
+
 const Header = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false);
-  const { notifications,disableNotification,getNewNotification } = useNotification();
-
-
-
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // State for mobile menu
+  const { notifications, disableNotification, getNewNotification } = useNotification();
 
   return (
     <div className="flex text-2xl m-5 items-center">
       <h1 className="font-bold text-3xl">EdTech</h1>
-      <div className="ml-32 sections text-xl flex space-x-10">
-        <Link href="/dashboard">Dashboard</Link>
-        <Link href="/attendance">Attendance</Link>
+
+      {/* Navigation Links for desktop */}
+      <div className="xl:flex hidden ml-32 sections text-xl space-x-10">
+        <Link className="hover:font-bold" href="/dashboard">Dashboard</Link>
+        <Link className="hover:font-bold" href="/attendance">Attendance</Link>
         <p>Teachers</p>
-        <Link href="/recent">Events</Link>
-        <p>Payments</p>
-        <Link href="/parentsguide">Parent's guide</Link>
+        <Link className="hover:font-bold" href="/recent">Events</Link>
+        <p>Calendar</p>
+        <Link className="hover:font-bold" href="/parentsguide">Parent's guide</Link>
       </div>
-      <div className="flex space-x-4 items-center profile ml-auto">
-        <div className="relative">
-        {getNewNotification() && (
-          <div className="absolute top-2 left-2 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-        )}
-          <button onClick={() => {
-            setShowNotification(!showNotification)
-            disableNotification()
-          }} className="p-2 transition">
-            
+
+      {/* Notification and Profile Section */}
+      <div className="flex space-x-4 ml-auto">
+        <div className="relative flex items-center">
+          {getNewNotification() && (
+            <div className="absolute top-2 left-2 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+          )}
+          <button
+            onClick={() => {
+              setShowNotification(!showNotification);
+              disableNotification();
+            }}
+            className="p-2 transition"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -50,18 +55,39 @@ const Header = () => {
             <div className="absolute top-12 right-0 w-48 p-3 bg-white shadow-lg rounded-md border">
               {notifications.length > 0 ? (
                 notifications.map((msg, index) => (
-                  <p key={index} className="text-sm text-gray-700 border-b last:border-none pb-1 mb-1">{msg}</p>
+                  <p key={index} className="text-sm text-gray-700 border-b last:border-none pb-1 mb-1">
+                    {msg}
+                  </p>
                 ))
               ) : (
                 <p className="text-sm text-gray-500">No notifications yet</p>
               )}
             </div>
           )}
+          <div className="xl:hidden mt-1 ml-2">
+            <button className="" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10 hover:size-11">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>
+          </div>
         </div>
-        <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-gray-300 shadow-lg">
-          <img src="/images/uifaces-popular-image.jpg" alt="Profile" className="w-full h-full object-cover" />
+
+        {/* Profile Image */}
+        <div className="hidden md:block w-14 h-14 rounded-full overflow-hidden border-2 border-gray-300 shadow-lg">
+          <img
+            src="/images/uifaces-popular-image.jpg"
+            alt="Profile"
+            className="w-full h-full object-cover"
+          />
         </div>
-        <p>Isabella Lewis</p>
+
+        {/* Name Section with centering */}
+        <div className="flex items-center justify-center flex-1">
+          <p className="hidden md:block">Isabella Lewis</p>
+        </div>
+
+        {/* Dropdown Icon */}
         <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -69,12 +95,31 @@ const Header = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="mt-2 size-6"
+            className="mt-2 size-6 hidden md:block"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>
         </button>
       </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="fixed top-0 right-0 w-60 h-full bg-white shadow-lg z-10 flex flex-col space-y-4 p-6">
+          {/* Close Button */}
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="absolute top-4 right-4 text-3xl text-gray-700"
+          >
+            &times; {/* This is the close button "X" */}
+          </button>
+          
+          <Link href="/dashboard" className="text-xl font-semibold">Dashboard</Link>
+          <Link href="/attendance" className="text-xl font-semibold">Attendance</Link>
+          <Link href="/recent" className="text-xl font-semibold">Events</Link>
+          <Link href="/parentsguide" className="text-xl font-semibold">Parent's guide</Link>
+          <p className="text-xl font-semibold">Calendar</p>
+        </div>
+      )}
     </div>
   );
 };

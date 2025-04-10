@@ -25,23 +25,35 @@ const data: grade = {
 const Dashboard = () => {
   return (
     <>
-      <div className='bg-[#F7F6F2] pl-16 pt-5 pb-5 pr-10'>
-        <div className=''>
-          <Header />
-          <div className='flex justify-between items-center'>
+      <div className='bg-[#F7F6F2] px-5 xl:px-16 pt-5 pb-5 lg:pr-20'>
+        <Header />
+
+
+        <div className='flex flex-wrap justify-center gap-4'>
+          <div className='flex justify-center w-full lg:w-[48%] 2xl:w-[32%]'>
             <Child_score data={data} />
+          </div>
+          <div className='w-full lg:w-[48%] 2xl:w-[32%]'>
             <Average_gpa />
+          </div>
+          <div className='w-full lg:w-full 2xl:w-[32%]'>
             <Parents_contacts />
           </div>
         </div>
       </div>
-      <div className='flex justify-between ml-16 mr-10'>
-        <Upcoming_tests />
-        <Today_classes />
-        <Recents_events />
+
+      <div className='flex flex-wrap justify-center gap-4 px-5 xl:px-16 lg:mr-10'>
+        <div className='w-full lg:w-[48%] 2xl:w-[32%]'>
+          <Upcoming_tests />
+        </div>
+        <div className='w-full lg:w-[48%] 2xl:w-[32%]'>
+          <Today_classes />
+        </div>
+        <div className='w-full lg:w-full 2xl:w-[32%]'>
+          <Recents_events />
+        </div>
       </div>
     </>
   );
 };
-
 export default Dashboard;

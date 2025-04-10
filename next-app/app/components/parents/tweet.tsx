@@ -37,13 +37,13 @@ const Tweet = ({ data }: { data: tweet_data }) => {
         {/* make 115 characters limit */}
         <p className="whitespace-normal">{data.text}</p>
       </div>
-      <div className="items-center flex ml-12 mt-3 ">
+      <div className="items-center flex-col lg:flex-row flex ml-12 mt-3 ">
         <div className="flex space-x-2">
           <Reaction data={{ amount: 2, emoji: "👍" }} />
           <Reaction data={{ amount: 6, emoji: "👍" }} />
           <Reaction data={{ amount: 3, emoji: "⚡" }} />
         </div>
-        <p className="text-gray-400 ml-auto">{data.time}</p>
+        <p className= "text-gray-400 text-center lg:ml-auto">{data.time}</p>
       </div>
       <div className="flex ml-12 mt-4 items-center">
         {/* make avatars overlap each other a little bit */}

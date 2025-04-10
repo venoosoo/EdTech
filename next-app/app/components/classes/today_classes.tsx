@@ -18,9 +18,9 @@ const lessons: Lesson_time[] = [
 
 const today_classes = () => {
   return (
-    <div className='ml-16 mt-24 text-4xl'>
-      <p className='text-5xl'>Today's Schedule</p>
-      <div>
+    <div className=' mt-24 text-4xl mr-5'>
+      <p className='text-5xl lg:text-center'>Today's Schedule</p>
+      <div className=''>
       {lessons.map((test, index) => (
           <Lesson_schedule key={index} data={test} />
         ))}
