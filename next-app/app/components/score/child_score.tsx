@@ -8,8 +8,8 @@ interface grade {
 
 const child_score = ({ data }: { data: grade }) => {
   return (
-    <div className='items-center min-w-[475px] m-5 mt-16'>
-      <p className=" leading-tight text-6xl">
+    <div className='items-center lg:min-w-[475px] m-5 mt-16'>
+      <p className="leading-tight text-6xl">
         Keep
         <span className="text-gray-400"> Your</span><br />
         <span>Children's success</span>

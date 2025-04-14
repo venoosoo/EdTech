@@ -3,23 +3,8 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/header'
 import Attendance from '../components/classes/attendance'
+import { useMediaQuery } from 'react-responsive';
 
-
-
-const month2 = [
-  // Each row = week
-  [4, 0, 2, 3, 2,],
-  [3, 1, 4, 2, 4],
-  [2, 2, 2, -1, 0],
-  [1,4]
-];
-
-const month3 = [
-  // Each row = week
-  [4, 4, 4, 4, 4,],
-  [3, 4, 2, 4, 0],
-  [2, 2, -1, -1, -1],
-];
 
 
 const dataYear = [
@@ -103,6 +88,15 @@ const page = () => {
   const currentYear = new Date().getFullYear();
   const [yearData, setYearData] = useState<number[][][]>(dataYear);
   const [selectedYear, setselectedYear] = useState<string>("2025");
+  const [columns, setColumns] = useState<number>(12);
+
+
+  const is2XL = useMediaQuery({ minWidth: 1536 });
+  const isLG = useMediaQuery({ minWidth: 1024 });
+  const isSM = useMediaQuery({ minWidth: 640 });
+
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+
 
   useEffect(() => {
     const storedData = localStorage.getItem(`attendanceData${currentYear}`);
@@ -114,6 +108,11 @@ const page = () => {
       localStorage.setItem(`attendanceData${currentYear}`, JSON.stringify(dataYear));
     }
   }, []);
+
+  useEffect(() => {
+    const newColumns = is2XL ? 3 : isLG ? 4 : isSM ? 6 : 12;
+    setColumns(newColumns);
+  }, [is2XL, isLG, isSM]);
 
   const HandeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedYear = event.target.value;
@@ -163,56 +162,59 @@ const page = () => {
 
   return (
     <div>
-      <div className='ml-16 mt-10 mr-10'><Header /></div>
-      <div className='ml-20 mt-20 '>
-        <div className='flex'>
+      <div className='xl:ml-16 mt-10 xl:mr-10'><Header /></div>
+      <div className='ml-5 xl:ml-20 mt-20 '>
+        <div className='lg:flex '>
           <p className='text-3xl'>Child's Attendance and Success</p>
-          <div className='flex items-center text-xl gap-2 ml-auto mr-16'>
-            <div className='rounded-full bg-black w-12 h-12'></div>
-            <p>Full day</p>
-            <div className='rounded-full bg-gray-800 w-10 h-10'></div>
-            <p>Half day</p>
-            <div className='rounded-full bg-gray-500 w-7 h-7'></div>
-            <p>One lesson</p>
-            <div className='rounded-full bg-gray-100 w-5 h-5'></div>
-            <p>Sick leave</p>
-            <select 
-              onChange={HandeChange}
-              className="px-4 py-1 bg-neutral-100 text-sm rounded-full hover:bg-neutral-200 hover:outline-none">
-              <option>{currentYear}</option>
-              <option>{currentYear - 1}</option>
-              <option>{currentYear - 2}</option>
-              <option>{currentYear - 3}</option>
-            </select>
-          </div>
+          <div className="grid xl:grid-cols-5 grid-cols-4 gap-x-6 items-center text-xl ml-auto mr-16">
+            <div className="flex items-center gap-2">
+              <div className="rounded-full bg-black w-10 h-10 shrink-0"></div>
+              <p>Full day</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="rounded-full bg-gray-800 w-8 h-8 shrink-0"></div>
+              <p>Half day</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="rounded-full bg-gray-500 w-6 h-6 shrink-0"></div>
+              <p>One lesson</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="rounded-full bg-gray-200 w-5 h-5 shrink-0"></div>
+              <p>Sick leave</p>
+            </div>
+            <div className='shrink-0 '>
+              <select 
+                onChange={HandeChange}
+                className="block text-xl px-4 py-1 mt-5 shrink-0 xl:mt-0 bg-neutral-100  rounded-full hover:bg-neutral-200 hover:outline-none">
+                <option>{currentYear}</option>
+                <option>{currentYear - 1}</option>
+                <option>{currentYear - 2}</option>
+                <option>{currentYear - 3}</option>
+              </select>
+            </div>
+            </div>
         </div>
-        <p className='text-4xl mt-10 text-black'>{selectedYear}</p>
+        <p className='text-4xl mt-10 hidden xl:block text-black'>{selectedYear}</p>
         <div className='flex'>
         <div>
-            <div className='text-gray-400 space-y-11 flex flex-col text-center text-xl mr-5 mt-20'>
-              <p className='mt-2'>Mon</p>
-              <p>Tue</p>
-              <p>Wed</p>
-              <p>Thu</p>
-              <p className='mb-4'>Fri</p>
-            </div>
-            <div className='text-gray-400 space-y-11 flex flex-col text-center text-xl mr-5 mt-32'>
-              <p className=''>Mon</p>
-              <p>Tue</p>
-              <p>Wed</p>
-              <p>Thu</p>
-              <p className='mb-4'>Fri</p>
-            </div>
-            <div className='text-gray-400 space-y-11 flex flex-col text-center text-xl mr-5 mt-32'>
-              <p className=''>Mon</p>
-              <p>Tue</p>
-              <p>Wed</p>
-              <p>Thu</p>
-              <p className='mb-4'>Fri</p>
-            </div>
+          {Array.from({ length: columns }).map((_, index) => (
+          <div
+            key={index}
+            className={`text-gray-400 space-y-7 xl:space-y-12  flex flex-col text-center text-xl lg:mr-5 ${
+              index === 0 ? 'mt-20' : 'mt-28 xl:mt-32'
+            }`}
+          >
+            {days.map((day, i) => (
+              <p key={i} className={day === 'Fri' ? 'xl:mb-4' : ''}>
+                {day}
+              </p>
+            ))}
           </div>
-          <div className='grid grid-cols-4 gap-5 space-x-10'>
-            <Attendance className='ml-10' attendace_data={{month: "January", data: yearData[0]}} />
+        ))}
+          </div>
+          <div className='grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2  2xl:grid-cols-4 gap-5 space-x-2 lg:space-x-10'>
+            <Attendance className='ml-2 lg:ml-10' attendace_data={{month: "January", data: yearData[0]}} />
             <Attendance attendace_data={{month: "February", data: yearData[1]}} />
             <Attendance attendace_data={{month: "March", data: yearData[2]}} />
             <Attendance attendace_data={{month: "April", data: yearData[3]}} />

@@ -33,7 +33,7 @@ const parent3: parents_info = {
 
 const parents_contacts = () => {
   return (
-    <div className='ml-5 mt-20'>
+    <div className='justify-items-center ml-5 mt-20'>
       <p className='mb-4 text-5xl'>Parent's contacts</p>
       <p className='text-xl text-gray-400'>Here you can see parent's and their contacs</p>
       <Parent data={parent1} />

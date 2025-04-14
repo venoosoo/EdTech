@@ -4,7 +4,7 @@ import GPAChart from './gpachart'
 
 const average_gpa = () => {
   return (
-    <div className='ml-16 flex flex-col flex-grow '>
+    <div className='xl:ml-16 flex flex-col flex-grow '>
       <div className="flex mt-20 mr-10 items-center space-x-16 mb-3">
         <p className='text-center text-4xl'>Average GPA</p>
         <div className='flex flex-1 space-x-10 text-gray-400 text-lg'>

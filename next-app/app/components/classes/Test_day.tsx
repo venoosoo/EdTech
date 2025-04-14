@@ -10,16 +10,16 @@ const Test_day = ({ data }: { data: TestDay }) => {
   return (
       <>
       {data.testName ? (
-        <div className='min-w-48 min-h-48 max-w-48 max-h-48 rounded-3xl bg-black text-gray-100'>
+        <div className='min-w-36 min-h-42 max-w-36 max-h-42 rounded-3xl bg-black text-gray-100'>
           <p className='ml-7 mt-7 font-bold text-4xl'>{data.dayNumber}</p>
           <p className='text-md text-xl ml-7 mt-2'>{data.testName}</p>
-          <p className='text-gray-400 mt-12 text-lg ml-7'>{data.day}</p>
+          <p className='text-gray-400 mt-8 mb-4 text-lg ml-7'>{data.day}</p>
         </div>
       ) : (
-        <div className='min-w-48 min-h-48 max-w-48 max-h-48 rounded-3xl bg-gray-200'>
+        <div className='min-w-36 min-h-42 max-w-36 max-h-42 rounded-3xl bg-gray-200'>
           <p className='ml-7 mt-7 font-bold text-4xl'>{data.dayNumber}</p>
           <p className='text-md text-xl ml-7 mt-2'>{data.testName}</p>
-          <p className='text-gray-400 mt-20 text-lg ml-7'>{data.day}</p>  
+          <p className='text-gray-400 mt-16 mb-4 text-lg ml-7'>{data.day}</p>  
         </div>
       )}
       </>

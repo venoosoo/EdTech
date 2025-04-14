@@ -40,10 +40,10 @@ const recents_events = () => {
 
 
   return (
-    <div className=' ml-16 mt-24'>
-      <div className='flex mb-16'>
+    <div className=' mt-24 mr-5 lg:mr-0'>
+      <div className='flex items-center mb-16'>
         <p className=' text-4xl '>Recents Events</p>
-        <button onClick={hande_show_all} className="max-h-9 ml-60 mt-auto px-4 py-1 bg-gray-100 text-black rounded-full whitespace-nowrap shadow-sm border border-gray-200 hover:bg-gray-200">
+        <button onClick={hande_show_all} className="max-h-9 ml-auto mt-2 px-4 py-1 bg-gray-100 text-black rounded-full whitespace-nowrap shadow-sm border border-gray-200 hover:bg-gray-200">
             Show all
         </button>
       </div>
