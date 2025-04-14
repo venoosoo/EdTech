@@ -74,7 +74,7 @@ const Header = () => {
         </div>
 
         {/* Profile Image */}
-        <div className="hidden md:block w-14 h-14 rounded-full overflow-hidden border-2 border-gray-300 shadow-lg">
+        <div className="hidden sm:block w-14 h-14 rounded-full overflow-hidden border-2 border-gray-300 shadow-lg">
           <img
             src="/images/uifaces-popular-image.jpg"
             alt="Profile"
@@ -84,7 +84,7 @@ const Header = () => {
 
         {/* Name Section with centering */}
         <div className="flex items-center justify-center flex-1">
-          <p className="hidden md:block">Isabella Lewis</p>
+          <p className="hidden sm:block">Isabella Lewis</p>
         </div>
 
         {/* Dropdown Icon */}
@@ -95,7 +95,7 @@ const Header = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="mt-2 size-6 hidden md:block"
+            className="mt-2 size-6 hidden sm:block"
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
           </svg>

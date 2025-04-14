@@ -25,7 +25,7 @@ const data: grade = {
 const Dashboard = () => {
   return (
     <>
-      <div className='bg-[#F7F6F2] px-5 xl:px-16 pt-5 pb-5 lg:pr-20'>
+      <div className='bg-[#F7F6F2] pl-5 xl:px-16 pt-5 pb-5 lg:pr-20'>
         <Header />
 
 

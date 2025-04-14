@@ -4,9 +4,9 @@ import React from 'react'
   
   const getCircleColor = (value: number) => {
     switch (value) {
-      case 4: return 'bg-black w-12 h-12';
-      case 3: return 'bg-gray-800 w-10 h-10';
-      case 2: return 'bg-gray-500 w-7 h-7';
+      case 4: return 'bg-black w-10 h-10';
+      case 3: return 'bg-gray-800 w-8 h-8';
+      case 2: return 'bg-gray-500 w-6 h-6';
       default: return 'bg-white w-5 h-5';
     }
   };
@@ -34,7 +34,7 @@ const attendance = ({attendace_data, className}: {attendace_data: attendance_dat
           {week.map((val, dayIdx) => (
             <div
               key={dayIdx}
-              className={`w-16 h-16 ${val < 0 ? 'bg-white' : 'bg-gray-200'} rounded flex items-center justify-center`}
+              className={`w-12 h-12 xl:w-16 xl:h-16 ${val < 0 ? 'bg-white' : 'bg-gray-200'} rounded flex items-center justify-center`}
             >
               <div className={`rounded-full ${getCircleColor(val)}`} />
             </div>
