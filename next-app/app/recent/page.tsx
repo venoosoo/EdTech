@@ -47,18 +47,18 @@ const Page = () => {
   return (
     <div className="">
       {/* Background */}
-      <div className="w-3/5 z-[-1] min-h-[1250px] bg-[#F7F6F2] absolute right-0 top-0"></div>
+      <div className="xl:w-7/12 w-screen z-[-1] min-h-[135%] bg-[#F7F6F2] absolute right-0 top-0"></div>
 
-      <div className="pl-16 pt-5 pr-10">
+      <div className="lg:pl-16 pt-5 lg:pr-10">
         <Header />
       </div>
 
-      <div className="flex">
-        <div>
-          <div className="min-w-[px] ml-20 mt-16">
+      <div className="flex ">
+        <div className=" h-full  xl:w-auto flex flex-col items-center w-full">
+          <div className="lg:ml-20 mt-16">
             <p className="text-6xl">Recent Events</p>
           </div>
-          <div className="grid grid-cols-2 grid-rows-3  gap-0 ml-16 mt-10 max-w-2xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-3  gap-0 ml-5 lg:ml-16 mt-10 max-w-2xl">
             {fakeData.map((event) => (
               <RecentEventCard
                 classname="max-h-72 min-h-72 max-w-70 min-w-70"
@@ -72,7 +72,7 @@ const Page = () => {
         </div>
 
         {/* Display Selected Event Details */}
-        <div className="ml-16 flex-grow mt-16">
+        <div className="hidden xl:block ml-16 flex-grow mt-16">
           {selectedEvent ? (
             <Eventdecs data2={{ date: selectedEvent.date, title: selectedEvent.event_name}} id={Number(selectedId)} />
           ) : (

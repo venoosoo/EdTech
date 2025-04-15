@@ -32,11 +32,11 @@ const page = () => {
 
 
   return (
-    <div className='mr-10'>
-      <div className='mt-10 ml-16'>
+    <div className='xl:mr-10'>
+      <div className='mt-10 ml-5 xl:ml-16'>
         <Header />
       </div>
-      <div className='flex justify-between ml-20 mt-16'>
+      <div className='flex justify-between ml-7 xl:ml-20 mt-16'>
         <p className='text-3xl ml-2 w-fit'>Parent's Guide</p>
         <div>
           <p className='text-gray-400 text-2xl mr-5'>
@@ -44,7 +44,7 @@ const page = () => {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-4 ml-20 mt-10">
+      <div className="grid grid-cols-1 place-items-center lg:grid-cols-2 xl:grid-cols-3 gap-4 mr-10 ml-5 xl:ml-20 mt-10">
         {fakeData.map((event, index) => (
           <RecentEventCard
             key={event.id}
