@@ -20,7 +20,6 @@ interface attendance_data {
 
 
 const attendance = ({attendace_data, className}: {attendace_data: attendance_data, className?: string}) => {
-  console.log(attendace_data.data)
   return (
     <div className={className}>   
       <div className="flex flex-row gap-2">

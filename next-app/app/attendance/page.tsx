@@ -187,7 +187,7 @@ const page = () => {
               <select 
                 onChange={HandeChange}
                 className="block text-xl px-4 py-1 mt-5 shrink-0 xl:mt-0 bg-neutral-100  rounded-full hover:bg-neutral-200 hover:outline-none">
-                <option>{currentYear}</option>
+                <option>{currentYear}</option>  
                 <option>{currentYear - 1}</option>
                 <option>{currentYear - 2}</option>
                 <option>{currentYear - 3}</option>

@@ -9,6 +9,7 @@ interface NotificationContextType {
   triggerNotification: () => void;
   getNewNotification: () => boolean;
   disableNotification: () => void;
+  getNotification: () => void;
 }
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
@@ -25,6 +26,10 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     return hasNewNotification
   };
 
+  const getNotification = () => {
+    return notifications
+  };
+
   const disableNotification = () => {
     setHasNewNotification(false)
   }
@@ -34,7 +39,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <NotificationContext.Provider value={{ notifications, addNotification, triggerNotification, getNewNotification, disableNotification }}>
+    <NotificationContext.Provider value={{ notifications, addNotification, triggerNotification, getNotification, getNewNotification, disableNotification }}>
       {children}
     </NotificationContext.Provider>
   );

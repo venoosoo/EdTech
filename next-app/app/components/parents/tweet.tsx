@@ -4,6 +4,7 @@ import React from "react";
 import Reaction from "../reaction";
 import { useNotification } from "@/app/context/NotificationContent";
 interface tweet_data {
+  id: number,
   avatar_link: string;
   name_surname: string;
   job: string;
@@ -17,8 +18,7 @@ const Tweet = ({ data }: { data: tweet_data }) => {
   const { addNotification,triggerNotification } = useNotification();
 
   const handleAddToCalendar = () => {
-    const Message = `${data.title} is coming soon`
-    addNotification(Message);
+    addNotification(data.id);
   };
 
   return (
@@ -68,7 +68,6 @@ const Tweet = ({ data }: { data: tweet_data }) => {
         <button
           onClick={() => {
             handleAddToCalendar(); 
-            triggerNotification(); 
           }}
           className="max-h-9 ml-auto px-4 py-1 bg-gray-100 text-black rounded-full whitespace-nowrap shadow-sm border border-gray-200 hover:bg-gray-200"
         >

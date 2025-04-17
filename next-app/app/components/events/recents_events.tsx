@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 
 
 interface tweet_data {
+  id: number,
   avatar_link: string,
   name_surname: string
   job: string,
@@ -18,6 +19,7 @@ interface tweet_data {
 };
 
 const tweetData: tweet_data = {
+  id: 5,
   avatar_link: "https://randomuser.me/api/portraits/men/6.jpg",
   name_surname: "Connor Elington",
   job: "Teacher Coordinator",
@@ -35,7 +37,7 @@ const recents_events = () => {
   const id = 5
 
   const hande_show_all = (): void => {
-    router.push(`/recent?id=${id}`);
+    router.push(`/events?id=${id}`);
   };
 
 

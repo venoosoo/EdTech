@@ -7,7 +7,9 @@ import { useNotification } from "../context/NotificationContent";
 const Header = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // State for mobile menu
-  const { notifications, disableNotification, getNewNotification } = useNotification();
+  const { notifications, disableNotification, getNewNotification, getNotification } = useNotification();
+
+  console.log(getNotification())
 
   return (
     <div className="flex text-2xl m-5 items-center">
@@ -18,8 +20,8 @@ const Header = () => {
         <Link className="hover:font-bold" href="/dashboard">Dashboard</Link>
         <Link className="hover:font-bold" href="/attendance">Attendance</Link>
         <p>Teachers</p>
-        <Link className="hover:font-bold" href="/recent">Events</Link>
-        <p>Calendar</p>
+        <Link className="hover:font-bold" href="/events">Events</Link>
+        <Link href="/calendar" className="hover:font-bold">Calendar</Link>
         <Link className="hover:font-bold" href="/parentsguide">Parent's guide</Link>
       </div>
 
@@ -117,7 +119,7 @@ const Header = () => {
           <Link href="/attendance" className="text-xl font-semibold">Attendance</Link>
           <Link href="/recent" className="text-xl font-semibold">Events</Link>
           <Link href="/parentsguide" className="text-xl font-semibold">Parent's guide</Link>
-          <p className="text-xl font-semibold">Calendar</p>
+          <Link href="/calendar" className="text-xl font-semibold">Calendar</Link>
         </div>
       )}
     </div>

@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 
 
 interface CardData {
-  id: number; // Add an ID field
+  id: number;
   event_name: string;
   text: string;
   date: string;
@@ -16,7 +16,7 @@ interface CardData {
 
 
 
-{/* somehow if id == 2 it breaks ui a little literaly no idea why */}
+
 
 const fakeData: CardData[] = [
   { id: 1, event_name: "Tech Conference 2025", text: "Join us for an exciting tech conference...", date: "2025-06-15" },
