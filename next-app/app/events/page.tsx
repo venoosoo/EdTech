@@ -5,7 +5,7 @@ import Header from "../components/header";
 import RecentEventCard from "../components/events/recent_event_card";
 import Eventdecs from "../components/events/event_decs";
 import { useSearchParams } from "next/navigation";
-
+import { useRouter } from 'next/navigation';
 
 interface CardData {
   id: number;
@@ -29,7 +29,7 @@ const fakeData: CardData[] = [
 
 const Page = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null); // Store selected event ID
-
+  const router = useRouter();
   // Find the event with the selected ID
   const selectedEvent = selectedId !== null ? fakeData.find(event => event.id === selectedId) : null;
   const searchParams = useSearchParams()
@@ -41,13 +41,20 @@ const Page = () => {
       setSelectedId(id)
     }
   }, [])
-
+  const relocate = (id: number)  => {
+    console.log(window.innerWidth)
+    if (window.innerWidth < 1280 && id != null) {
+      router.push(`/events/${id}`);
+    } else if (id != null) {
+      setSelectedId(id);
+    }
+  }
   
 
   return (
     <div className="">
       {/* Background */}
-      <div className="xl:w-7/12 w-screen z-[-1] min-h-[135%] bg-[#F7F6F2] absolute right-0 top-0"></div>
+      <div className="xl:w-7/12 w-screen hidden xl:block z-[-1] min-h-[135%] bg-[#F7F6F2] absolute right-0 top-0"></div>
 
       <div className="lg:pl-16 pt-5 lg:pr-10">
         <Header />
@@ -55,7 +62,7 @@ const Page = () => {
 
       <div className="flex ">
         <div className=" h-full  xl:w-auto flex flex-col items-center w-full">
-          <div className="lg:ml-20 mt-16">
+          <div className="lg:ml-20 ml-5 mt-16">
             <p className="text-6xl">Recent Events</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-3  gap-0 ml-5 lg:ml-16 mt-10 max-w-2xl">
@@ -65,7 +72,7 @@ const Page = () => {
                 key={event.id}
                 data={event}
                 isActive={selectedId === event.id}
-                onClick={() => setSelectedId(event.id)} // Set selected event ID
+                onClick={() => relocate(event.id)} // Set selected event ID
               />
             ))}
           </div>

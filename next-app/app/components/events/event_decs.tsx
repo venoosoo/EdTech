@@ -10,7 +10,6 @@ interface event {
   title: string,
 };
 
-
 interface post {
   avatar_link: string,
   name: string,
@@ -141,13 +140,13 @@ const EventDecs = ({ data2, id }: { data2: event, id: number }) => {
 
     <>
       <div className="b ml-5 p-4">
-        <p className="text-2xl text-gray-400">
+        <p className="text-2xl text-center text-gray-400">
           Date: <span className="text-black">{data2.date}</span>
         </p>
         {/* Flex container for title and button/SVGs */}
-        <div className="flex justify-between items-center mt-3">
-          <p className="text-3xl">{data2.title}</p>
-          <div className="flex mr-16 items-center space-x-4">
+        <div className="flex text-center flex-col xl:ml-7 lg:flex-row justify-between items-center mt-3">
+          <p className="text-3xl text-center">{data2.title}</p>
+          <div className="flex mr-16 mt-10 justify-center items-center  space-x-4">
             <button 
             onClick={() => {
               handleAddToCalendar();
@@ -197,7 +196,7 @@ const EventDecs = ({ data2, id }: { data2: event, id: number }) => {
       <Post data={dataList[id]} />
       
       {/* Scrollable comments section */}
-      <div className="h-[600px] overflow-y-auto space-y-5 mt-5 ml-16 pb-24">
+      <div className="h-[600px] overflow-y-auto space-y-5 mt-5 xl:ml-16 pb-24">
         {comments.map((test, index) => (
           <Post_comment key={index} data={test} />
         ))}

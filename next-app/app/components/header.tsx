@@ -9,7 +9,6 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // State for mobile menu
   const { notifications, disableNotification, getNewNotification, getNotification } = useNotification();
 
-  console.log(getNotification())
 
   return (
     <div className="flex text-2xl m-5 items-center">
@@ -117,7 +116,7 @@ const Header = () => {
           
           <Link href="/dashboard" className="text-xl font-semibold">Dashboard</Link>
           <Link href="/attendance" className="text-xl font-semibold">Attendance</Link>
-          <Link href="/recent" className="text-xl font-semibold">Events</Link>
+          <Link href="/events" className="text-xl font-semibold">Events</Link>
           <Link href="/parentsguide" className="text-xl font-semibold">Parent's guide</Link>
           <Link href="/calendar" className="text-xl font-semibold">Calendar</Link>
         </div>

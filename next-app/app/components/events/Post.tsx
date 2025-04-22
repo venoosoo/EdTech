@@ -26,12 +26,12 @@ const Post = ({ data }: { data: post }) => {
                 <p className='text-gray-400 text-xl '>{data.job}</p>
             </div>
         </div>
-        <div className='pl-4 rounded-xl ml-16 pt-3 mt-4 pb-5 bg-white max-w-5xl mr-16'>
+        <div className='pl-4 rounded-xl xl:ml-16 pt-3 mt-4 pb-5 bg-white max-w-5xl mr-16'>
             <p className='whitespace-normal'>
             {data.text}
              </p>
         </div>
-        <div className='ml-16  mt-4 mr-16 items-center flex space-x-2'>
+        <div className='xl:ml-16  mt-4 mr-16 items-center flex space-x-2'>
             <Reaction data={{ amount: 2, emoji: "👍" }} />
             <Reaction data={{ amount: 7, emoji: "👍" }} />
             <Reaction data={{ amount: 4, emoji: "⚡" }} />

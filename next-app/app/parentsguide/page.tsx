@@ -33,7 +33,7 @@ const page = () => {
 
   return (
     <div className='xl:mr-10'>
-      <div className='mt-10 ml-5 xl:ml-16'>
+      <div className='mt-10 xl:ml-16'>
         <Header />
       </div>
       <div className='flex justify-between ml-7 xl:ml-20 mt-16'>
