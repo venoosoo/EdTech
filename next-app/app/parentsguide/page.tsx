@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/header'
 import RecentEventCard from '../components/events/recent_event_card'
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams,useRouter  } from 'next/navigation';
 
 interface CardData {
   id: number; 
@@ -28,8 +28,12 @@ const fakeData: CardData[] = [
 
 const page = () => {
   
+  const router = useRouter();
 
 
+  const re_direct = (id: nubmer) => {
+    router.push(`/parentsguide/${id}`);
+  }
 
   return (
     <div className='xl:mr-10'>
@@ -54,7 +58,7 @@ const page = () => {
             `}
             data={event}
             isActive={false}
-            onClick={() => null}
+            onClick={() => re_direct(event.id)}
           />
         ))}
       </div>
