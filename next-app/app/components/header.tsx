@@ -1,13 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useNotification } from "../context/NotificationContent";
+import { isAuthenticated } from "./auth";
 
 const Header = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // State for mobile menu
   const { notifications, disableNotification, getNewNotification, getNotification } = useNotification();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      router.replace("/register"); // Redirects immediately if not logged in
+    }
+  }, []);
 
 
   return (
