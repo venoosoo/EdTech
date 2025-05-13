@@ -1,39 +1,59 @@
-// src/utils/auth.ts
 
-const TOKEN_KEY = 'authToken';
 
-export const isAuthenticated = (): boolean => {
-  const token = localStorage.getItem(TOKEN_KEY);
-  return !!token;  
+export const isAuthenticated = async (): Promise<boolean> => {
+  try {
+    const response = await fetch("http://localhost:8080/me", {
+      method: 'GET',
+      credentials: "include", // Send cookies
+    });
+
+    if (response.ok) {
+      // Optionally, you can parse the response to check additional details, such as user data
+      const data = await response.json();
+      console.log("User authenticated:", data);
+      return true;
+    } else {
+      console.log("User not authenticated. Status:", response.status);
+      return false;
+    }
+  } catch (error) {
+    console.error("Auth check failed:", error);
+    return false;
+  }
 };
 
-export const getToken = (): string | null => {
-  return localStorage.getItem(TOKEN_KEY);
-};
 
-export const login = (token: string): void => {
-  localStorage.setItem(TOKEN_KEY, token);
-};
 
-export const logout = (): void => {
-  localStorage.removeItem(TOKEN_KEY);
+
+
+
+// Logout by making a request that clears the cookie on server
+export const logout = async (): Promise<void> => {
+  try {
+    await fetch("http://localhost:8080/logout", {
+      method: "POST",
+      credentials: "include"
+    });
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
 };
 
 export const handleLogin = async (username: string, password: string): Promise<boolean> => {
   try {
-    const response = await fetch('/api/login', {
+    const response = await fetch('http://localhost:8080/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ Login: username, Password: password }),
+      credentials: "include",
+
     });
 
     if (response.ok) {
       const data = await response.json();
-      const { token } = data;
-
-      login(token);
+      console.log(data)
       return true;
     } else {
       console.error('Login failed:', response.statusText);
@@ -42,6 +62,27 @@ export const handleLogin = async (username: string, password: string): Promise<b
   } catch (error) {
     console.error('Login error:', error);
     return false;
+  }
+};
+
+export const handleRegister = async (username: string, password: string): Promise<boolean> => {
+  try {
+    const response = await fetch('http://localhost:8080/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ Login: username, password: password}),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data)
+      
+    }
+  } catch (error) {
+    console.error('Registation error: ', error)
+    return false
   }
 };
 

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { handleLogin} from '../components/auth.ts'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -9,13 +10,16 @@ export default function LoginPage() {
 
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const  handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     console.log('Logging in', { email, password });
-
-    // Here you would call your API
-
+    let result: boolean | null = null
+    result = await handleLogin(email, password)
+    if ( result ) {
+      router.push('/dashboard')
+      localStorage.setItem("username", email)
+    }
     // Reset fields
     setEmail('');
     setPassword('');
@@ -62,7 +66,7 @@ export default function LoginPage() {
           </button>
         </div>
 
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+        <button type="submit" onClick={handleSubmit} className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
           Log In
         </button>
 

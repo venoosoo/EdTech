@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { handleRegister } from "../components/auth.ts"
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
@@ -15,7 +16,13 @@ export default function RegisterPage() {
 
     console.log('Registering', { email, password, confirmPassword });
 
-    // Here you would send data to your API
+    if (password === confirmPassword){  
+      handleRegister(email, password)
+      localStorage.setItem("username", email)
+    } else {
+      console.log('password is not same')
+    }
+
 
     // Reset fields
     setEmail('');
@@ -59,7 +66,7 @@ export default function RegisterPage() {
           className="border p-2 rounded"
         />
 
-        <button type="submit" className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
+        <button type="submit" onClick={handleSubmit} className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
           Register
         </button>
 

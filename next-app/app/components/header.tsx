@@ -1,24 +1,13 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+"use client"
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useNotification } from "../context/NotificationContent";
-import { isAuthenticated } from "./auth";
 
 const Header = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // State for mobile menu
-  const { notifications, disableNotification, getNewNotification, getNotification } = useNotification();
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      router.replace("/register"); // Redirects immediately if not logged in
-    }
-  }, []);
-
+  const { notifications, disableNotification, getNewNotification } = useNotification();
 
   return (
     <div className="flex text-2xl m-5 items-center">
@@ -75,13 +64,6 @@ const Header = () => {
               )}
             </div>
           )}
-          <div className="xl:hidden mt-1 ml-2">
-            <button className="" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10 hover:size-11">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
-            </button>
-          </div>
         </div>
 
         {/* Profile Image */}
@@ -95,7 +77,7 @@ const Header = () => {
 
         {/* Name Section with centering */}
         <div className="flex items-center justify-center flex-1">
-          <p className="hidden sm:block">Isabella Lewis</p>
+          <p className="hidden sm:block">{localStorage.getItem("username")}</p>
         </div>
 
         {/* Dropdown Icon */}
@@ -136,3 +118,4 @@ const Header = () => {
 };
 
 export default Header;
+
