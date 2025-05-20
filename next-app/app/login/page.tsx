@@ -42,7 +42,7 @@ export default function LoginPage() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
+          placeholder="login"
           required
           className="border p-2 rounded"
         />

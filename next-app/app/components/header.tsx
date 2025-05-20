@@ -1,13 +1,45 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useNotification } from "../context/NotificationContent";
+import { logout } from "../components/auth.ts"
 
 const Header = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // State for mobile menu
   const { notifications, disableNotification, getNewNotification } = useNotification();
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
+
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
+    console.log("Hey")
+
+    console.log(localStorage.getItem('username'))
+
+    if (localStorage.getItem('username') == null) {
+      router.push('/register')
+    } 
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('username')
+    logout()
+    router.push('/login')
+  }
+
+
 
   return (
     <div className="flex text-2xl m-5 items-center">
@@ -81,20 +113,39 @@ const Header = () => {
         </div>
 
         {/* Dropdown Icon */}
-        <button>
-          <svg
+        <div className="relative inline-block text-left flex items-center" ref={menuRef}>
+          <button onClick={() => setIsOpen(!isOpen)}>
+            <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
             className="mt-2 size-6 hidden sm:block"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-          </svg>
-        </button>
-      </div>
+            >
+            <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m19.5 8.25-7.5 7.5-7.5-7.5"
+            />
+            </svg>
+          </button>
 
+        {isOpen && (
+          <div className="absolute right-0 mt-20 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-20">
+            <div className="py-1">
+              <button
+                onClick={handleLogout}
+                className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        )}
+        </div>
+
+        
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="fixed top-0 right-0 w-60 h-full bg-white shadow-lg z-10 flex flex-col space-y-4 p-6">
@@ -113,6 +164,7 @@ const Header = () => {
           <Link href="/calendar" className="text-xl font-semibold">Calendar</Link>
         </div>
       )}
+    </div>
     </div>
   );
 };

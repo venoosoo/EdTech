@@ -61,11 +61,50 @@ func main() {
 	http.HandleFunc("/register", registerHandler)
 	http.HandleFunc("/login", loginHandler)
 	http.HandleFunc("/me", meHandler)
+	http.HandleFunc("/logout", logoutHandler)
 
 	// Start the server with CORS enabled
 	fmt.Println("Server started on http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(origins, headers, methods, credentials)(http.DefaultServeMux)))
 }
+
+
+func logoutHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Only POST allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	cookie := &http.Cookie{
+        Name:     "token",
+        Value:    "",
+        Path:     "/",
+        Expires:  time.Unix(0, 0),
+        MaxAge:   -1,
+        HttpOnly: true,
+        Secure:    false,
+        SameSite: http.SameSiteLaxMode,
+    }
+
+    http.SetCookie(w, cookie)
+    w.Write([]byte("Cookie deleted"))
+
+		cookie2 := &http.Cookie{
+			Name:     "username",
+        Value:    "",
+        Path:     "/",
+        Expires:  time.Unix(0, 0),
+        MaxAge:   -1,
+        HttpOnly: true,
+        Secure:   true,
+        SameSite: http.SameSiteLaxMode,
+    }
+
+    http.SetCookie(w, cookie2)
+    w.Write([]byte("Cookie deleted"))
+}
+
+
 
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
@@ -180,15 +219,14 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Set the token cookie (1 week duration)
 	cookie := http.Cookie{
 		Name:     "token",
 		Value:    token,
 		HttpOnly: true,
 		Path:     "/",
-		Secure:   false, // set to true if using HTTPS
+		Secure:   false, 
 		SameSite: http.SameSiteLaxMode,
-		MaxAge:   60 * 60 * 24 * 7, // 1 week
+		MaxAge:   60 * 60 * 24 * 7, 
 	}
 
 	cookie2 := http.Cookie{
@@ -263,21 +301,18 @@ func GenerateSecureToken() (string, error) {
 func authenticateUser(login string, plainPassword string) (*User, error) {
 	var user User
 
-	// Step 1: Find user by login
 	result := db.Where("login = ?", login).First(&user)
 	if result.Error != nil {
 		// User not found
 		return nil, fmt.Errorf("invalid login")
 	}
 
-	// Step 2: Compare hashed password with input password
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(plainPassword))
 	if err != nil {
 		// Password doesn't match
 		return nil, fmt.Errorf("invalid password")
 	}
 
-	// Success — return user pointer
 	return &user, nil
 }
 
