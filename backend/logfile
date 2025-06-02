@@ -1,0 +1,18 @@
+2025-06-01 17:20:14.795 EEST [1458427] LOG:  starting PostgreSQL 17.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 15.1.1 20250425, 64-bit
+2025-06-01 17:20:14.795 EEST [1458427] LOG:  listening on IPv6 address "::1", port 5432
+2025-06-01 17:20:14.795 EEST [1458427] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-06-01 17:20:14.796 EEST [1458427] FATAL:  could not create lock file "/run/postgresql/.s.PGSQL.5432.lock": No such file or directory
+2025-06-01 17:20:14.798 EEST [1458427] LOG:  database system is shut down
+2025-06-01 17:21:13.819 EEST [1462246] LOG:  starting PostgreSQL 17.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 15.1.1 20250425, 64-bit
+2025-06-01 17:21:13.820 EEST [1462246] LOG:  listening on IPv6 address "::1", port 5432
+2025-06-01 17:21:13.820 EEST [1462246] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-06-01 17:21:13.820 EEST [1462246] FATAL:  could not create lock file "/run/postgresql/.s.PGSQL.5432.lock": No such file or directory
+2025-06-01 17:21:13.822 EEST [1462246] LOG:  database system is shut down
+2025-06-01 17:21:51.647 EEST [1464677] LOG:  starting PostgreSQL 17.4 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 15.1.1 20250425, 64-bit
+2025-06-01 17:21:51.647 EEST [1464677] LOG:  listening on IPv6 address "::1", port 5432
+2025-06-01 17:21:51.647 EEST [1464677] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-06-01 17:21:51.648 EEST [1464677] LOG:  listening on Unix socket "/run/postgresql/.s.PGSQL.5432"
+2025-06-01 17:21:51.650 EEST [1464680] LOG:  database system was shut down at 2025-06-01 17:21:10 EEST
+2025-06-01 17:21:51.654 EEST [1464677] LOG:  database system is ready to accept connections
+2025-06-01 17:22:45.457 EEST [1467652] ERROR:  role "postgres" does not exist
+2025-06-01 17:22:45.457 EEST [1467652] STATEMENT:  ALTER USER postgres WITH ENCRYPTED PASSWORD 'ven1';
