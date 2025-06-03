@@ -23,21 +23,34 @@ func Logout(w http.ResponseWriter, r *http.Request) {
         SameSite: http.SameSiteLaxMode,
     }
 
-    http.SetCookie(w, cookie)
-    w.Write([]byte("Cookie deleted"))
+  w.Write([]byte("Cookie deleted"))
 
-		cookie2 := &http.Cookie{
-			Name:     "username",
-        Value:    "",
-        Path:     "/",
-        Expires:  time.Unix(0, 0),
-        MaxAge:   -1,
-        HttpOnly: true,
-        Secure:   true,
-        SameSite: http.SameSiteLaxMode,
-    }
+	cookie2 := &http.Cookie{
+		Name:     "username",
+    Value:    "",
+    Path:     "/",
+    Expires:  time.Unix(0, 0),
+    MaxAge:   -1,
+    HttpOnly: true,
+    Secure:   true,
+    SameSite: http.SameSiteLaxMode,
+  }
 
-    http.SetCookie(w, cookie2)
-    w.Write([]byte("Cookie deleted"))
+   w.Write([]byte("Cookie deleted"))
+
+	cookie3 := &http.Cookie{
+		Name:     "id",
+    Value:    "",
+    Path:     "/",
+    Expires:  time.Unix(0, 0),
+    MaxAge:   -1,
+    HttpOnly: true,
+    Secure:   true,
+    SameSite: http.SameSiteLaxMode,
+  }
+	http.SetCookie(w, cookie)
+	http.SetCookie(w, cookie2)
+	http.SetCookie(w, cookie3)
+  w.Write([]byte("Cookie deleted"))
 }
 

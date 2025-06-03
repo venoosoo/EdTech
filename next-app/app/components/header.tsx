@@ -23,9 +23,7 @@ const Header = () => {
     };
     document.addEventListener('mousedown', handleClickOutside);
 
-    console.log("Hey")
 
-    console.log(localStorage.getItem('username'))
 
     if (localStorage.getItem('username') == null) {
       router.push('/register')

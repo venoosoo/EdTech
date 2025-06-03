@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"backend/get_grades"
 	"backend/models"
 	"backend/login"
 	"backend/register"
@@ -82,18 +83,21 @@ func main() {
 	http.HandleFunc("/login", loginHandler)
 	http.HandleFunc("/me", meHandler)
 	http.HandleFunc("/logout", logoutHandler)
-
+	http.HandleFunc("/get_grades", getGradesHandler)
 	// Start the server with CORS enabled
 	fmt.Println("Server started on http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(origins, headers, methods, credentials)(http.DefaultServeMux)))
 }
 
 
+func getGradesHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("hey?")
+	getGrades.GetGrades(w,r,db)
+}
+
 func logoutHandler(w http.ResponseWriter, r *http.Request) {
 	logout.Logout(w,r)
 }
-
-
 
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {

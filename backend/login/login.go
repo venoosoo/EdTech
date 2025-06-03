@@ -7,6 +7,7 @@ import (
 	"backend/authenticateUser"
 	"gorm.io/gorm"
 	"backend/replaceToken"
+	"strconv"
 
 )
 
@@ -66,13 +67,25 @@ func Login(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 		MaxAge:   60 * 60 * 24 * 7, // 1 week
 	}
 
+	cookie3 := http.Cookie{
+		Name:     "id",
+		Value:    strconv.FormatUint(uint64(user.ID), 10),
+		HttpOnly: true,
+		Path:     "/",
+		Secure:   false, // set to true if using HTTPS
+		SameSite: http.SameSiteLaxMode,
+		MaxAge:   60 * 60 * 24 * 7, // 1 week
+	}
+
 
 	http.SetCookie(w, &cookie)
 	http.SetCookie(w, &cookie2)
+	http.SetCookie(w, &cookie3)
 
 
-	json.NewEncoder(w).Encode(map[string]string{
-		"message": "Login successful",
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"message": "User registered",
+		"user_id": user.ID,
 	})
   
 }

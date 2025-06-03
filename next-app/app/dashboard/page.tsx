@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Header from '../components/header';
 import Child_score from '../components/score/child_score';
@@ -7,22 +8,15 @@ import Upcoming_tests from '../components/classes/Upcoming_tests';
 import Today_classes from '../components/classes/today_classes';
 import Recents_events from '../components/events/recents_events';
 
-interface grade {
-  grade_letter: string,
-  grade_number: number,
-  time: string
-};
 
-
-const data: grade = {
-  grade_letter: "A+",
-  grade_number: 94,
-  time: "March 15",
-};
 
 
 
 const Dashboard = () => {
+  
+  
+
+
   return (
     <>
       <div className='bg-[#F7F6F2]  xl:px-16 pt-5 pb-5 lg:pr-20'>
@@ -31,7 +25,7 @@ const Dashboard = () => {
 
         <div className='flex flex-wrap justify-center gap-4'>
           <div className='flex justify-center w-full lg:w-[48%] 2xl:w-[32%]'>
-            <Child_score data={data} />
+            <Child_score />
           </div>
           <div className='w-full lg:w-[48%] 2xl:w-[32%]'>
             <Average_gpa />

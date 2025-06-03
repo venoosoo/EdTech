@@ -54,8 +54,10 @@ export const handleLogin = async (username: string, password: string): Promise<b
     if (response.ok) {
       const data = await response.json();
       console.log(data)
+      localStorage.setItem("id",data.user_id)
       return true;
     } else {
+      console.log(response)
       console.error('Login failed:', response.statusText);
       return false;
     }
@@ -78,7 +80,7 @@ export const handleRegister = async (username: string, password: string): Promis
     if (response.ok) {
       const data = await response.json();
       console.log(data)
-      
+      localStorage.setItem("id", data.user_id)     
     }
   } catch (error) {
     console.error('Registation error: ', error)

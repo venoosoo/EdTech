@@ -1,32 +1,87 @@
-import React from 'react'
+"use client";
+import React, { useEffect, useState } from "react";
 
-interface grade {
-  grade_letter: string,
-  grade_number: number,
-  time: string,
-};
-
-const child_score = ({ data }: { data: grade }) => {
-  return (
-    <div className='items-center lg:min-w-[475px] m-5 mt-16'>
-      <p className="leading-tight text-6xl">
-        Keep
-        <span className="text-gray-400"> Your</span><br />
-        <span>Children's success</span>
-      </p>
-      <p className='text-gray-400 mt-12 text-xl'>Grinding in education</p>
-      <div>
-        {/* Make function to converts precents in grade */}
-        <p className='text-8xl'>{data.grade_letter}, {data.grade_number}%</p>
-      </div>
-      {/* Also add later auto add */}
-      <p className='mt-10 text-2xl'>
-        <span className=' text-gray-400'>Lastest update added: </span>
-        <span className='font-bold'>{data.time}</span>
-        </p>
-      
-    </div>
-  )
+interface Grade {
+  grade_letter: string;
+  grade_number: number;
+  time: string;
 }
 
-export default child_score
+function convertGradeToLetter(gradeNumber: number): string {
+  if (gradeNumber < 50) return "F";
+  else if (gradeNumber < 60) return "D";
+  else if (gradeNumber < 70) return "C";
+  else if (gradeNumber < 80) return "B";
+  else if (gradeNumber < 90) return "A";
+  else return "A+";
+}
+
+const ChildScore = () => {
+  const [grade, setGrade] = useState<Grade | null>(null);
+
+  useEffect(() => {
+    const id = localStorage.getItem("id");
+    if (!id) {
+      console.error("No id found in localStorage");
+      return;
+    }
+
+    async function fetchGrade(userId: string) {
+      try {
+        const res = await fetch("http://localhost:8080/get_grades", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: userId }),
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch grade");
+
+        // Backend returns a single integer, e.g., 42
+        const gradeNumber: number = await res.json();
+
+        const gradeLetter = convertGradeToLetter(gradeNumber);
+
+        // You can set a dummy or current time here if backend does not provide it
+        const time = new Date().toLocaleString();
+
+        setGrade({
+          grade_number: gradeNumber,
+          grade_letter: gradeLetter,
+          time,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchGrade(id);
+  }, []);
+
+  if (!grade) {
+    return <p>Loading grade...</p>;
+  }
+
+  return (
+    <div className="items-center lg:min-w-[475px] m-5 mt-16">
+      <p className="leading-tight text-6xl">
+        Keep
+        <span className="text-gray-400"> Your</span>
+        <br />
+        <span>Children's success</span>
+      </p>
+      <p className="text-gray-400 mt-12 text-xl">Grinding in education</p>
+      <div>
+        <p className="text-8xl">
+          {grade.grade_letter}, {grade.grade_number}%
+        </p>
+      </div>
+      <p className="mt-10 text-2xl">
+        <span className="text-gray-400">Latest update added: </span>
+        <span className="font-bold">{grade.time}</span>
+      </p>
+    </div>
+  );
+};
+
+export default ChildScore;
+
