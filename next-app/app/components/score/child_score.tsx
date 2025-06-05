@@ -36,12 +36,9 @@ const ChildScore = () => {
 
         if (!res.ok) throw new Error("Failed to fetch grade");
 
-        // Backend returns a single integer, e.g., 42
         const gradeNumber: number = await res.json();
 
         const gradeLetter = convertGradeToLetter(gradeNumber);
-
-        // You can set a dummy or current time here if backend does not provide it
         const time = new Date().toLocaleString();
 
         setGrade({

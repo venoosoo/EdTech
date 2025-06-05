@@ -10,6 +10,7 @@ import (
 	"backend/login"
 	"backend/register"
 	"backend/logout"
+	"backend/gpachart_grades"
 	"backend/meHandler"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
@@ -84,14 +85,21 @@ func main() {
 	http.HandleFunc("/me", meHandler)
 	http.HandleFunc("/logout", logoutHandler)
 	http.HandleFunc("/get_grades", getGradesHandler)
-	// Start the server with CORS enabled
+	http.HandleFunc("/get_graph_grades", get_graph_grades)
+
+
+
 	fmt.Println("Server started on http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(origins, headers, methods, credentials)(http.DefaultServeMux)))
 }
 
 
+func get_graph_grades(w http.ResponseWriter, r *http.Request) {
+	getGraphGrades.GetGrades(w,r,db)
+}
+
+
 func getGradesHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("hey?")
 	getGrades.GetGrades(w,r,db)
 }
 
