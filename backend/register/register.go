@@ -9,11 +9,14 @@ import (
 	"backend/models"
 	"time"
 	"strconv"
+	"math/rand"
 )
 
 
 
 func Register(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+	rand.Seed(time.Now().UnixNano())
+
 	if r.Method != http.MethodPost {
 		http.Error(w, "Only POST allowed", http.StatusMethodNotAllowed)
 		return
@@ -49,6 +52,7 @@ func Register(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 		http.Error(w, "Failed to hash token", http.StatusInternalServerError)
 		return
 	}
+	class_id := rand.Intn(105-101+1) + 101
 
 	user := models.User{
 		Login:     req.Login,
@@ -56,6 +60,7 @@ func Register(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 		CreatedAt: time.Now(),
 		Token:     hashedToken,
 		Average_grade: 0,
+		Class: class_id,
 	}
 
 	result := db.Create(&user)
@@ -93,11 +98,21 @@ func Register(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 		SameSite: http.SameSiteLaxMode,
 		MaxAge:   60 * 60 * 24 * 7, // 1 week
 	}
+	cookie4 := http.Cookie {
+		Name: "class",
+		Value: strconv.Itoa(class_id),
+		HttpOnly: true,
+		Path: "/",
+		Secure: false,
+		SameSite: http.SameSiteLaxMode,
+		MaxAge: 60 * 60 * 24 * 7,
+	}
 
 
 	http.SetCookie(w, &cookie)
 	http.SetCookie(w, &cookie2)
 	http.SetCookie(w, &cookie3)
+	http.SetCookie(w, &cookie4)
 
 	// Response
 	w.WriteHeader(http.StatusCreated)

@@ -10,12 +10,14 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // State for mobile menu
   const { notifications, disableNotification, getNewNotification } = useNotification();
   const [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState("");
   const menuRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
 
 
   useEffect(() => {
+    setUsername(localStorage.getItem("username"))
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
@@ -107,7 +109,7 @@ const Header = () => {
 
         {/* Name Section with centering */}
         <div className="flex items-center justify-center flex-1">
-          <p className="hidden sm:block">{localStorage.getItem("username")}</p>
+          <p className="hidden sm:block">{username}</p>
         </div>
 
         {/* Dropdown Icon */}

@@ -8,6 +8,8 @@ import (
 	"gorm.io/gorm"
 	"backend/replaceToken"
 	"strconv"
+	"time"
+	"math/rand"
 
 )
 
@@ -18,6 +20,8 @@ type RegisterRequest struct {
 }
 
 func Login(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
+	rand.Seed(time.Now().UnixNano())
+
 	if r.Method != http.MethodPost {
 		http.Error(w, "Only POST allowed", http.StatusMethodNotAllowed)
 		return
@@ -44,6 +48,12 @@ func Login(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 	newToken, err := replace.ReplaceToken(user, db)
  	if err != nil {
 		http.Error(w, "Failed to update token", http.StatusInternalServerError)
+		return
+	}
+	var class int
+	rows := db.Raw("SELECT class FROM users WHERE id = ?",user.ID).Scan(&class)
+	if rows.Error != nil {
+		http.Error(w, "Exams not found", http.StatusNotFound)
 		return
 	}
 
@@ -76,16 +86,27 @@ func Login(w http.ResponseWriter, r *http.Request, db *gorm.DB) {
 		SameSite: http.SameSiteLaxMode,
 		MaxAge:   60 * 60 * 24 * 7, // 1 week
 	}
+	cookie4 := http.Cookie {
+		Name: "class",
+		Value: strconv.Itoa(class),
+		HttpOnly: true,
+		Path: "/",
+		Secure: false,
+		SameSite: http.SameSiteLaxMode,
+		MaxAge: 60 * 60 * 24 * 7,
+	}
 
 
 	http.SetCookie(w, &cookie)
 	http.SetCookie(w, &cookie2)
 	http.SetCookie(w, &cookie3)
+	http.SetCookie(w, &cookie4)
 
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"message": "User registered",
+		"message": "User logined",
 		"user_id": user.ID,
+		"class_id": class,
 	})
   
 }

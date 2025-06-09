@@ -48,9 +48,22 @@ func Logout(w http.ResponseWriter, r *http.Request) {
     Secure:   true,
     SameSite: http.SameSiteLaxMode,
   }
+	cookie4 := &http.Cookie{
+		Name:     "class",
+    Value:    "",
+    Path:     "/",
+    Expires:  time.Unix(0, 0),
+    MaxAge:   -1,
+    HttpOnly: true,
+    Secure:   true,
+    SameSite: http.SameSiteLaxMode,
+  }
+
+
 	http.SetCookie(w, cookie)
 	http.SetCookie(w, cookie2)
 	http.SetCookie(w, cookie3)
+	http.SetCookie(w, cookie4)
   w.Write([]byte("Cookie deleted"))
 }
 

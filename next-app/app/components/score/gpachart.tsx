@@ -84,7 +84,6 @@ export default function GPAChart() {
         });
         if (!res.ok) throw new Error("Failed to fetch grade");
         const gradeNumber: number = await res.json();
-        console.log(gradeNumber)
         const sortedData = gradesLastTwoWeeksWorkingDays(gradeNumber)
         const week = getThisWeekDaysFormatted()
         const data = [

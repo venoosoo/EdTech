@@ -45,6 +45,42 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: exams; Type: TABLE; Schema: public; Owner: ven
+--
+
+CREATE TABLE public.exams (
+    exam_id integer NOT NULL,
+    class_id numeric NOT NULL,
+    date timestamp without time zone NOT NULL,
+    class_name character varying NOT NULL
+);
+
+
+ALTER TABLE public.exams OWNER TO ven;
+
+--
+-- Name: exams_exam_id_seq; Type: SEQUENCE; Schema: public; Owner: ven
+--
+
+CREATE SEQUENCE public.exams_exam_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.exams_exam_id_seq OWNER TO ven;
+
+--
+-- Name: exams_exam_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ven
+--
+
+ALTER SEQUENCE public.exams_exam_id_seq OWNED BY public.exams.exam_id;
+
+
+--
 -- Name: grades; Type: TABLE; Schema: public; Owner: ven
 --
 
@@ -91,7 +127,8 @@ CREATE TABLE public.users (
     password text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     token character varying(64),
-    average_grade bigint NOT NULL
+    average_grade bigint NOT NULL,
+    class bigint NOT NULL
 );
 
 
@@ -120,6 +157,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: exams exam_id; Type: DEFAULT; Schema: public; Owner: ven
+--
+
+ALTER TABLE ONLY public.exams ALTER COLUMN exam_id SET DEFAULT nextval('public.exams_exam_id_seq'::regclass);
+
+
+--
 -- Name: grades grade_id; Type: DEFAULT; Schema: public; Owner: ven
 --
 
@@ -134,14 +178,26 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Data for Name: exams; Type: TABLE DATA; Schema: public; Owner: ven
+--
+
+COPY public.exams (exam_id, class_id, date, class_name) FROM stdin;
+5	103	2025-06-11 09:30:00	science
+4	102	2025-06-12 10:00:00	math
+\.
+
+
+--
 -- Data for Name: grades; Type: TABLE DATA; Schema: public; Owner: ven
 --
 
 COPY public.grades (users_id, grade, subject_id, grade_id, time_placed) FROM stdin;
-3	5	100	5	2025-06-03 13:08:59.489279
-3	3.5	100	6	2025-06-03 13:09:05.647098
-3	4.2	100	7	2025-06-03 13:09:09.09827
-3	3	100	8	2025-06-03 13:09:14.290937
+3	65	102	9	2025-06-05 19:36:30.099302
+3	80	100	5	2025-06-03 13:08:59.489279
+3	90	100	6	2025-06-03 13:09:05.647098
+3	70	100	8	2025-06-03 13:09:14.290937
+5	90	100	10	2025-06-05 19:37:15.194027
+3	90	100	7	2025-05-27 13:09:09.098
 \.
 
 
@@ -149,24 +205,41 @@ COPY public.grades (users_id, grade, subject_id, grade_id, time_placed) FROM std
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: ven
 --
 
-COPY public.users (id, login, password, created_at, token, average_grade) FROM stdin;
-4	venoosoo	$2a$10$IHPIjXVDhPIDOV9SYAlTnOcA6Twhi7fV3E9awQivzK05AxLW/h0MO	2025-06-03 14:42:09.802438	$2a$10$B/qa9qWOx6WC81.4xh3Cfu8KaTcD1FQ64qJUdiXY6sfomXiLsVtDi	0
-3	venoosoo23	$2a$10$s1qU9P4RDYrTTW9sG2vvou69lXGW6xUKNGgA1XI92vhnXQtKUPSem	2025-06-03 12:30:44.883174	$2a$10$VBxViKB11Teba.0pydU7Nepu87lgJ5trkDTxykgK0xo2.I2I/RXia	56
+COPY public.users (id, login, password, created_at, token, average_grade, class) FROM stdin;
+5	venoosoo2	$2a$10$QZ.m7HGOTWtoie6XUahpyuxE89Yk5mN8qwl9ifjMIY.jJCuqyPj56	2025-06-05 19:34:57.957064	$2a$10$6pN0AYekVqCkmpYvBUOxl.plJaSS.oIOP7xMFe/3R0oneoSJos4XC	90	103
+4	venoosoo	$2a$10$IHPIjXVDhPIDOV9SYAlTnOcA6Twhi7fV3E9awQivzK05AxLW/h0MO	2025-06-03 14:42:09.802438	$2a$10$VE6DW2o67BbIc8Pioq8H7.fSYvlxTHKpoQ1uQpZaB.VCZQ3yVVrPC	0	103
+6	venoosoo50	$2a$10$diRFXXPUK4CMOGcLc3b0Geo8nvEjfHKjvFAz8TwNqI5nSz/nXh31e	2025-06-09 21:13:08.312437	$2a$10$ay4gyVnZbqnQJkLPd7wcG.MVerp0Sz5g7N7u.5DCCImGtL1dTrZzW	0	102
+3	venoosoo23	$2a$10$s1qU9P4RDYrTTW9sG2vvou69lXGW6xUKNGgA1XI92vhnXQtKUPSem	2025-06-03 12:30:44.883174	$2a$10$9CMRvvdREI/ANlfX23r6VesvmuwdRuIb8L2Lyb9042y2B7AnDgskW	79	102
 \.
+
+
+--
+-- Name: exams_exam_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ven
+--
+
+SELECT pg_catalog.setval('public.exams_exam_id_seq', 5, true);
 
 
 --
 -- Name: grades_grade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ven
 --
 
-SELECT pg_catalog.setval('public.grades_grade_id_seq', 8, true);
+SELECT pg_catalog.setval('public.grades_grade_id_seq', 10, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ven
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 4, true);
+SELECT pg_catalog.setval('public.users_id_seq', 6, true);
+
+
+--
+-- Name: exams exams_pk; Type: CONSTRAINT; Schema: public; Owner: ven
+--
+
+ALTER TABLE ONLY public.exams
+    ADD CONSTRAINT exams_pk PRIMARY KEY (exam_id);
 
 
 --

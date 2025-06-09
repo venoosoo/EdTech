@@ -9,6 +9,7 @@ type User struct {
 	CreatedAt time.Time `gorm:"not null"`
 	Token     string    `gorm:"size:64;uniqueIndex"`
 	Average_grade int `gorm:"not null"`
+	Class int `gorm:"not null"`
 }
 
 type RegisterRequest struct {

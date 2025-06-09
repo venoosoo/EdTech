@@ -12,6 +12,7 @@ import (
 	"backend/logout"
 	"backend/gpachart_grades"
 	"backend/meHandler"
+	"backend/exams"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -85,7 +86,8 @@ func main() {
 	http.HandleFunc("/me", meHandler)
 	http.HandleFunc("/logout", logoutHandler)
 	http.HandleFunc("/get_grades", getGradesHandler)
-	http.HandleFunc("/get_graph_grades", get_graph_grades)
+	http.HandleFunc("/get_graph_grades", getGraphGrade)
+	http.HandleFunc("/get_exams", getExamsHandler)
 
 
 
@@ -94,7 +96,11 @@ func main() {
 }
 
 
-func get_graph_grades(w http.ResponseWriter, r *http.Request) {
+func getExamsHandler(w http.ResponseWriter, r *http.Request) {
+	getExams.GetExams(w,r,db)
+}
+
+func getGraphGrade(w http.ResponseWriter, r *http.Request) {
 	getGraphGrades.GetGrades(w,r,db)
 }
 
