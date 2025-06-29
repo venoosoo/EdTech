@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { handleLogin} from '../components/auth.ts'
+import { handleLogin} from '../components/auth'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -71,7 +71,7 @@ export default function LoginPage() {
         </button>
 
         <div className="text-center mt-2">
-          <p className="text-sm">Don't have an account?</p>
+          <p className="text-sm">Don&apos;t have an account?</p>
           <button
             type="button"
             onClick={handleRegisterRedirect}

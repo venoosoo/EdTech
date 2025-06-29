@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
+import Image from "next/image"
 import Reaction from "../reaction";
-import { useNotification } from "@/app/context/NotificationContent";
 interface tweet_data {
   id: number,
   avatar_link: string;
@@ -15,17 +15,16 @@ interface tweet_data {
 }
 
 const Tweet = ({ data }: { data: tweet_data }) => {
-  const { addNotification,triggerNotification } = useNotification();
 
   const handleAddToCalendar = () => {
-    addNotification(data.id);
+    console.log('smth')
   };
 
   return (
     <div className="p-5">
       <div className="flex items-center">
         <div className="mr-4 w-12 h-12 rounded-full overflow-hidden border-2 border-gray-300 shadow-lg">
-          <img src={data.avatar_link} alt="Profile" className="w-full h-full object-cover" />
+          <Image src={data.avatar_link} alt="Profile" className="w-full h-full object-cover" />
         </div>
         <div>
           <p>{data.name_surname}</p>
@@ -48,17 +47,17 @@ const Tweet = ({ data }: { data: tweet_data }) => {
       <div className="flex ml-12 mt-4 items-center">
         {/* make avatars overlap each other a little bit */}
         <div className="flex items-center">
-          <img
+          <Image
             src="https://api.dicebear.com/7.x/personas/svg?seed=User1"
             alt="User 1"
             className="w-10 h-10 rounded-full border-2 border-gray-200 z-10"
           />
-          <img
+          <Image
             src="https://api.dicebear.com/7.x/personas/svg?seed=User2"
             alt="User 2"
             className="w-10 h-10 rounded-full border-2 border-gray-200 -ml-3 z-20"
           />
-          <img
+          <Image
             src="https://api.dicebear.com/7.x/personas/svg?seed=User3"
             alt="User 3"
             className="w-10 h-10 rounded-full border-2 border-gray-200 -ml-3 z-30"

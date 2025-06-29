@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"backend/lessons"
 	"backend/get_grades"
 	"backend/models"
 	"backend/login"
@@ -81,13 +82,14 @@ func main() {
 	credentials := handlers.AllowCredentials()
 
 	// Register routes
-	http.HandleFunc("/register", registerHandler)
-	http.HandleFunc("/login", loginHandler)
-	http.HandleFunc("/me", meHandler)
-	http.HandleFunc("/logout", logoutHandler)
-	http.HandleFunc("/get_grades", getGradesHandler)
-	http.HandleFunc("/get_graph_grades", getGraphGrade)
-	http.HandleFunc("/get_exams", getExamsHandler)
+	http.HandleFunc("/api/register", registerHandler)
+	http.HandleFunc("/api/login", loginHandler)
+	http.HandleFunc("/api/me", meHandler)
+	http.HandleFunc("/api/logout", logoutHandler)
+	http.HandleFunc("/api/get_grades", getGradesHandler)
+	http.HandleFunc("/api/get_graph_grades", getGraphGrade)
+	http.HandleFunc("/api/get_exams", getExamsHandler)
+	http.HandleFunc("/api/get_lessons", getLessonsHandler)
 
 
 
@@ -95,6 +97,10 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(origins, headers, methods, credentials)(http.DefaultServeMux)))
 }
 
+
+func getLessonsHandler(w http.ResponseWriter, r *http.Request) {
+	getLessons.Lessons(w,r,db)
+}
 
 func getExamsHandler(w http.ResponseWriter, r *http.Request) {
 	getExams.GetExams(w,r,db)

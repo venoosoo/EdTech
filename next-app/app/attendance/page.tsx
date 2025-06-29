@@ -84,7 +84,7 @@ const dataYear = [
 
 
 
-const page = () => {
+const Page = () => {
   const currentYear = new Date().getFullYear();
   const [yearData, setYearData] = useState<number[][][]>(dataYear);
   const [selectedYear, setselectedYear] = useState<string>("2025");
@@ -165,7 +165,7 @@ const page = () => {
       <div className='xl:ml-16 mt-10 xl:mr-10'><Header /></div>
       <div className='ml-5 xl:ml-20 mt-20 '>
         <div className='lg:flex '>
-          <p className='text-3xl'>Child's Attendance and Success</p>
+          <p className='text-3xl'>Child&apos;s Attendance and Success</p>
           <div className="grid xl:grid-cols-5 grid-cols-4 gap-x-6 items-center text-xl ml-auto mr-16">
             <div className="flex items-center gap-2">
               <div className="rounded-full bg-black w-10 h-10 shrink-0"></div>
@@ -233,4 +233,4 @@ const page = () => {
   )
 }
 
-export default page;
+export default Page;

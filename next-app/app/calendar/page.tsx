@@ -1,10 +1,8 @@
 "use client"
 
-import React, { useEffect } from 'react'
 import Header from '../components/header'
-import { useNotification } from '../context/NotificationContent';
 import RecentEventCard from '../components/events/recent_event_card';
-import router, { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 interface CardData {
     id: number; // Add an ID field
@@ -20,21 +18,13 @@ const fakeData: CardData[] = [
   ];
 
 
-const page = () => {
+const Page = () => {
+  
+  const router = useRouter();
 
-    const {  getNotification } = useNotification();
-    const router = useRouter();
-    
-    useEffect(() => {
-        const events = getNotification()
-        {/* ask db to get data from post id */}
-
-        
-      }, []);
-
-      const hande_show_all = (id:number): void => {
-        router.push(`/events?id=${id}`);
-      };
+  const hande_show_all = (id:number): void => {
+     router.push(`/events?id=${id}`);
+  };
 
   return (
     <div>
@@ -57,4 +47,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

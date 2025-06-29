@@ -11,8 +11,7 @@ interface TestDay {
 function convertToFullWeekSchedule(
   input: { Date: string; ClassName: string }[]
 ): TestDay[] {
-  // Use input date or fallback to current week
-  const baseDate = input.length > 0 ? new Date(input[0].Date) : new Date();
+  const baseDate = new Date(); // Always use current date
 
   const testMap = new Map<string, string>();
   input.forEach((item) => {
@@ -21,7 +20,7 @@ function convertToFullWeekSchedule(
     testMap.set(key, item.ClassName);
   });
 
-  // Find Monday of the week
+  // Find Monday of the current week
   const baseDay = baseDate.getDay(); // 0 = Sunday
   const monday = new Date(baseDate);
   monday.setDate(baseDate.getDate() - ((baseDay + 6) % 7)); // Backtrack to Monday
@@ -39,13 +38,15 @@ function convertToFullWeekSchedule(
 
     weekSchedule.push({
       dayNumber: currentDate.getDate(),
-      testName: testMap.get(key), // undefined if not found
+      testName: testMap.get(key), // will be undefined if no exam that day
       day: dayname,
     });
   }
 
   return weekSchedule;
 }
+
+
 
 const Upcoming_tests = () => {
   const [testSchedule, setTestSchedule] = useState<TestDay[]>([]);
@@ -56,7 +57,7 @@ const Upcoming_tests = () => {
       const class_id = localStorage.getItem("class_id");
       if (!class_id) return;
 
-      const res = await fetch("http://localhost:8080/get_exams", {
+      const res = await fetch("/api/get_exams", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: class_id }),

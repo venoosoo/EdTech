@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+import React, { useEffect  } from "react"
+
 import Lesson_schedule from './lesson_schedule'
 
 
@@ -16,10 +18,35 @@ const lessons: Lesson_time[] = [
   { time_start: "2:55 PM", time_end: "4:10 PM", lesson_name: "Physical Education" },
 ];
 
-const today_classes = () => {
+const Today_classes = () => {
+
+  
+  async function fetchLessons() {
+    try {
+      const class_id = localStorage.getItem("class_id");
+      if (!class_id) return;
+
+      const res = await fetch("/api/get_lessons", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: class_id }),
+      });
+      console.log(res)
+      if (!res.ok) throw new Error("Failed to fetch lessons");
+      const lessons = await res.json();
+      console.log(lessons)
+
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  }
+  useEffect(() => {
+    fetchLessons();
+  }, []);
+
   return (
     <div className=' mt-24 text-4xl mr-5'>
-      <p className='text-5xl lg:text-center'>Today's Schedule</p>
+      <p className='text-5xl lg:text-center'>Today&apos;s Schedule</p>
       <div className=''>
       {lessons.map((test, index) => (
           <Lesson_schedule key={index} data={test} />
@@ -29,4 +56,4 @@ const today_classes = () => {
   )
 }
 
-export default today_classes
+export default Today_classes

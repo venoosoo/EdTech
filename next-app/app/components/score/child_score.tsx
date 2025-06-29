@@ -28,7 +28,7 @@ const ChildScore = () => {
 
     async function fetchGrade(userId: string) {
       try {
-        const res = await fetch("http://localhost:8080/get_grades", {
+        const res = await fetch("/api/get_grades", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: userId }),
@@ -64,7 +64,7 @@ const ChildScore = () => {
         Keep
         <span className="text-gray-400"> Your</span>
         <br />
-        <span>Children's success</span>
+        <span>Children&apos;s success</span>
       </p>
       <p className="text-gray-400 mt-12 text-xl">Grinding in education</p>
       <div>

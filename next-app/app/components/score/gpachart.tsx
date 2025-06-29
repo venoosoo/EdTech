@@ -1,13 +1,18 @@
 "use client";
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import {useEffect, useState } from "react"
 
 
+interface Grade {
+  Grade: number,
+  TimePlaced: string,
+}
+
 function getThisWeekDaysFormatted() {
   const now = new Date()
-  const day = now.getDay() || 7 // Make Sunday=7 instead of 0
   const monday = new Date(now)
+  const day = now.getDay();
   monday.setDate(now.getDate() - day + 1) // Get Monday of this week
   monday.setHours(0,0,0,0)
 
@@ -20,9 +25,9 @@ function getThisWeekDaysFormatted() {
   })
 }
 
-function getLastNWorkingDays(n) {
+function getLastNWorkingDays(n: number) {
   const days = []
-  let date = new Date()
+  const date = new Date()
   date.setHours(0, 0, 0, 0) // normalize time
 
   while (days.length < n) {
@@ -37,11 +42,11 @@ function getLastNWorkingDays(n) {
 }
 
 // Main function
-function gradesLastTwoWeeksWorkingDays(grades) {
+function gradesLastTwoWeeksWorkingDays(grades: Grade[]) {
   const last10WorkingDays = getLastNWorkingDays(10)
 
   // Map date string -> { sum, count }
-  const gradesMap = {}
+  const gradesMap: { [key: string]: { sum: number; count: number } } = {};
 
   grades.forEach(({ Grade, TimePlaced }) => {
     const date = new Date(TimePlaced)
@@ -67,7 +72,8 @@ function gradesLastTwoWeeksWorkingDays(grades) {
 
 
 export default function GPAChart() {
-  
+  const [data, setData] = useState<{ day: string; previous: number; current: number }[]>([]);
+
   useEffect(() => {
     const id = localStorage.getItem("id");
     if (!id) {
@@ -77,13 +83,13 @@ export default function GPAChart() {
 
     async function fetchGrade(userId: string) {
       try {
-        const res = await fetch("http://localhost:8080/get_graph_grades", {
+        const res = await fetch("/api/get_graph_grades", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: userId }),
         });
         if (!res.ok) throw new Error("Failed to fetch grade");
-        const gradeNumber: number = await res.json();
+        const gradeNumber: Grade[] = await res.json();
         const sortedData = gradesLastTwoWeeksWorkingDays(gradeNumber)
         const week = getThisWeekDaysFormatted()
         const data = [
@@ -104,7 +110,6 @@ export default function GPAChart() {
   }, []);
 
 
-  const [data, setData] = useState([])
 
   return (
     <div className="flex">

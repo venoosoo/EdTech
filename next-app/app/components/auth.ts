@@ -26,7 +26,6 @@ export const isAuthenticated = async (): Promise<boolean> => {
 
 
 
-
 // Logout by making a request that clears the cookie on server
 export const logout = async (): Promise<void> => {
   try {
@@ -68,28 +67,32 @@ export const handleLogin = async (username: string, password: string): Promise<b
   }
 };
 
-export const handleRegister = async (username: string, password: string): Promise<boolean> => {
+export const handleRegister = async (
+  username: string,
+  password: string
+): Promise<boolean> => {
   try {
     const response = await fetch('http://localhost:8080/register', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ Login: username, password: password}),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ Login: username, password }),
     });
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data)
-      localStorage.setItem("id", data.user_id)  
-      localStorage.setItem("class_id", data.class_id)
-
+      console.log(data);
+      localStorage.setItem("id", data.user_id);
+      localStorage.setItem("class_id", data.class_id);
+      return true; // ✅ success path
+    } else {
+      return false; // ✅ failure path
     }
   } catch (error) {
-    console.error('Registation error: ', error)
-    return false
+    console.error('Registration error:', error);
+    return false; // ✅ error path
   }
 };
+
 
 export const isTokenExpired = (token: string): boolean => {
   try {
@@ -102,19 +105,4 @@ export const isTokenExpired = (token: string): boolean => {
   }
 };
 
-export const refreshToken = async (): Promise<string | null> => {
-  const token = getToken();
-  if (!token || isTokenExpired(token)) {
-    try {
-      const newToken = await fakeApiRefreshToken(token);
-      login(newToken);  
-      return newToken;
-    } catch (error) {
-      console.error('Token refresh failed', error);
-      logout();  
-      return null;
-    }
-  }
-  return token; 
-};
 

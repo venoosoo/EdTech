@@ -3,14 +3,16 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useNotification } from "../context/NotificationContent";
-import { logout } from "../components/auth.ts"
+import { logout } from "../components/auth"
+import Image from "next/image"
+
 
 const Header = () => {
   const [showNotification, setShowNotification] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // State for mobile menu
   const { notifications, disableNotification, getNewNotification } = useNotification();
   const [isOpen, setIsOpen] = useState(false);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState<string | null>("");
   const menuRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
@@ -52,7 +54,7 @@ const Header = () => {
         <p>Teachers</p>
         <Link className="hover:font-bold" href="/events">Events</Link>
         <Link href="/calendar" className="hover:font-bold">Calendar</Link>
-        <Link className="hover:font-bold" href="/parentsguide">Parent's guide</Link>
+        <Link className="hover:font-bold" href="/parentsguide">Parent&apos;s guide</Link>
       </div>
 
       {/* Notification and Profile Section */}
@@ -100,7 +102,7 @@ const Header = () => {
 
         {/* Profile Image */}
         <div className="hidden sm:block w-14 h-14 rounded-full overflow-hidden border-2 border-gray-300 shadow-lg">
-          <img
+          <Image
             src="/images/uifaces-popular-image.jpg"
             alt="Profile"
             className="w-full h-full object-cover"
@@ -160,7 +162,7 @@ const Header = () => {
           <Link href="/dashboard" className="text-xl font-semibold">Dashboard</Link>
           <Link href="/attendance" className="text-xl font-semibold">Attendance</Link>
           <Link href="/events" className="text-xl font-semibold">Events</Link>
-          <Link href="/parentsguide" className="text-xl font-semibold">Parent's guide</Link>
+          <Link href="/parentsguide" className="text-xl font-semibold">Parent&apos;s guide</Link>
           <Link href="/calendar" className="text-xl font-semibold">Calendar</Link>
         </div>
       )}

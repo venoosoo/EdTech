@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { handleRegister } from "../components/auth.ts"
+import { handleRegister } from "../components/auth"
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');

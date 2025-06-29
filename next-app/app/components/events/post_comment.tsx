@@ -1,6 +1,6 @@
 import React from 'react'
 import Reaction from '../reaction'
-
+import Image from "next/image"
 
 interface comment {
   avatar: string,
@@ -16,7 +16,7 @@ const post_comment = ({data}: {data: comment}) => {
     <div className='border-l-2 border-gray-300 pl-4'>
       <div className='flex items-center'>
         <div className="mr-4 w-14 ml-10 h-14 rounded-full overflow-hidden border-2 border-gray-300 shadow-lg">
-            <img src={data.avatar} alt="Profile" className="w-full h-full object-cover" />
+            <Image src={data.avatar} alt="Profile" className="w-full h-full object-cover" />
         </div>
         <p className='text-2xl'>{data.name}</p>
       </div>

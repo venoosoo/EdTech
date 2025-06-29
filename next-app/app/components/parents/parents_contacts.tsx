@@ -34,8 +34,8 @@ const parent3: parents_info = {
 const parents_contacts = () => {
   return (
     <div className='justify-items-center ml-5 mt-20'>
-      <p className='mb-4 text-5xl'>Parent's contacts</p>
-      <p className='text-xl text-gray-400'>Here you can see parent's and their contacs</p>
+      <p className='mb-4 text-5xl'>Parent&apos;s contacts</p>
+      <p className='text-xl text-gray-400'>Here you can see parent&apos;s and their contacs</p>
       <Parent data={parent1} />
       <Parent data={parent2} />
       <Parent data={parent3} />

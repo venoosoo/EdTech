@@ -1,9 +1,9 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React  from 'react'
 import Header from '../components/header'
 import RecentEventCard from '../components/events/recent_event_card'
-import { useSearchParams,useRouter  } from 'next/navigation';
+import {useRouter  } from 'next/navigation';
 
 interface CardData {
   id: number; 
@@ -26,12 +26,12 @@ const fakeData: CardData[] = [
 ];
 
 
-const page = () => {
+const Page = () => {
   
   const router = useRouter();
 
 
-  const re_direct = (id: nubmer) => {
+  const re_direct = (id: number) => {
     router.push(`/parentsguide/${id}`);
   }
 
@@ -41,7 +41,7 @@ const page = () => {
         <Header />
       </div>
       <div className='flex justify-between ml-7 xl:ml-20 mt-16'>
-        <p className='text-3xl ml-2 w-fit'>Parent's Guide</p>
+        <p className='text-3xl ml-2 w-fit'>Parent&apos;s Guide</p>
         <div>
           <p className='text-gray-400 text-2xl mr-5'>
             Number of available guides <span className='text-black'>21</span>
@@ -49,7 +49,7 @@ const page = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 place-items-center lg:grid-cols-2 xl:grid-cols-3 gap-4 mr-10 ml-5 xl:ml-20 mt-10">
-        {fakeData.map((event, index) => (
+        {fakeData.map((event) => (
           <RecentEventCard
             key={event.id}
             classname={`
@@ -66,4 +66,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

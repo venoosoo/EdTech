@@ -1,7 +1,6 @@
 "use client"
 import { useParams } from 'next/navigation';
 import Header from "../../components/header";
-import EventDecs from "../../components/events/event_decs.tsx"
 import React from "react";
 
 // TypeScript interfaces

@@ -31,7 +31,7 @@ const tweetData: tweet_data = {
 
 
 
-const recents_events = () => {
+const Recents_events = () => {
   const router = useRouter();
   {/* simulate backend post id */}
   const id = 5
@@ -56,4 +56,4 @@ const recents_events = () => {
   )
 }
 
-export default recents_events
+export default Recents_events

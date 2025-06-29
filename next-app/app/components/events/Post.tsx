@@ -1,6 +1,6 @@
 import React from 'react'
 import Reaction from '../reaction'
-
+import Image from "next/image"
 
 interface post {
   avatar_link: string,
@@ -19,7 +19,7 @@ const Post = ({ data }: { data: post }) => {
     <div>
       <div className='flex mt-5 items-center'>
           <div className="mr-4 w-16 h-16 rounded-full overflow-hidden border-2 border-gray-300 shadow-lg">
-            <img src={data.avatar_link} alt="Profile" className="w-full h-full object-cover" />
+            <Image src={data.avatar_link} alt="Profile" className="w-full h-full object-cover" />
           </div>
             <div>
                 <p className='text-xl'>{data.name}</p>

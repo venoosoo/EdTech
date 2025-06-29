@@ -2,7 +2,7 @@ import React from 'react'
 
 interface TestDay {
   dayNumber: number;
-  testName: string | undefined;
+  testName?: string;
   day: string;
 }
 

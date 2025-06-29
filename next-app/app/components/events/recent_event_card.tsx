@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react'
+import React from 'react'
 
 interface card_data {
     event_name: string,
